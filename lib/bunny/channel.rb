@@ -233,6 +233,7 @@ module Bunny
     # {Bunny::Queue}, {Bunny::Exchange} and {Bunny::Consumer} instances.
     # @api public
     def close
+      raise Timeout::Error, 'test timeout in channel close'
       @connection.close_channel(self)
       @status = :closed
       @work_pool.shutdown
@@ -1416,6 +1417,7 @@ module Bunny
     # @see http://rubybunny.info/articles/extensions.html RabbitMQ Extensions guide
     # @api public
     def wait_for_confirms
+      raise Timeout::Error, 'test timeout in wait for confirms'
       wait_on_confirms_continuations
       read_and_reset_only_acks_received
     end
